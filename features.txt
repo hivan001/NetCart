@@ -1,0 +1,12 @@
+List of remaining features
+
+# Ability to right click and add an object to the map
+# Ability to right click and delete an exisiting object
+# Ability to draw lines between objects 
+# Fix the push button so that it hides/shows the open ports per object
+# Ability to zoom in and out of the gui
+# Ability to import nmap scan results to fill the network_db json
+# Fix bug that allows objects to cover the legend in the bottom left
+# Ability to export map as pdf
+# Ability to edit attributes of each object
+# Ability to show/hide additional attributes per object on the map
