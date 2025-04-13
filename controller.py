@@ -5,9 +5,9 @@ from PySide6 import QtCore, QtWidgets, QtGui
 class Controller():
     '''Controller class handles communication between model and view'''
     def __init__(self, model, view):
-        self.path = "results/network_db.json"
         self.id_generator = 0
         self.model = model
+        self.path = self.model.resource_path("results/network_db.json")
         self.view = view
         self.data = self.get_model_data()
         # Arrays of QGraphicsItemGroups 

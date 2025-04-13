@@ -17,8 +17,8 @@ class Icon(QtWidgets.QGraphicsView):
     def __init__(self):
         super().__init__()
 
-        pc_path = "static/pc.png"
-        server_path = "static/server.png"
+        pc_path = self.resource_path("static/pc.png")
+        server_path = self.resource_path("static/server.png")
 
         pc_pixmap = QtGui.QPixmap(pc_path)
         server_pixmap = QtGui.QPixmap(server_path)
@@ -34,6 +34,11 @@ class Icon(QtWidgets.QGraphicsView):
             return f" - {self.services[port]}"
         else:
             return ""
+        
+    def resource_path(self,relative_path):
+        if hasattr(sys, "_MEIPASS"):
+            return os.path.join(sys._MEIPASS, relative_path)
+        return os.path.abspath(relative_path)
 
 
 

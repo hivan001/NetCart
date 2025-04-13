@@ -1,4 +1,4 @@
-import sys
+import sys,os
 import random
 import copy
 import icon
@@ -12,7 +12,7 @@ class Model():
     # db_ports = ["3306","5432","27017","1521","1433"]
     # web_ports = ["80","443","8080"]
     def __init__(self):
-        self.path = "results/network_db.json"
+        self.path = self.resource_path("results/network_db.json")
 
     def get_ids(self):
         data = self.read_db()
@@ -89,6 +89,11 @@ class Model():
 
         self.write_db(data)
 
+    def resource_path(self,relative_path):
+        if hasattr(sys, "_MEIPASS"):
+            return os.path.join(sys._MEIPASS, relative_path)
+        return os.path.abspath(relative_path)
+
 
     def write_db(self,data):
         try:
@@ -100,12 +105,13 @@ class Model():
     def read_db(self):
         try:
             with open(self.path, "r") as file:
-               data = json.load(file)
-        except (FileNotFoundError):
+                return json.load(file)
+        except FileNotFoundError:
             print("NetCart Error: JSON File not found.")
-        except (json.JSONDecodeError):
+        except json.JSONDecodeError:
             print("NetCart Error: Unable to load JSON file.")
 
-        return data
+        return {}  # Return empty dict if there was an error
+
 
 
