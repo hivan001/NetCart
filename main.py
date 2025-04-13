@@ -11,12 +11,11 @@ def main():
     main_view = MainView()
     model = Model()
     controller = Controller(model=model, view=main_view)
-
+    
     data = controller.get_model_data()
     controller.plot_results()  
 
     main_view.show()
-
     sys.exit(app.exec())    
 
 

@@ -1,4 +1,5 @@
 from model import Model
+from icon_group import IconGroup
 from PySide6 import QtCore, QtWidgets, QtGui
 
 class Controller():
@@ -21,82 +22,15 @@ class Controller():
         self.view.add_router_signal.connect(self.add_router)
         self.view.add_switch_signal.connect(self.add_switch)
 
+
     
     def get_model_data(self):
         return self.model.read_db()
     
-
-    def make_icon_group(self,icon,object):
-        icon_x_pos = icon.pos().x()
-        icon_y_pos = icon.pos().y()
-        icon_width = icon.pixmap().width()
-
-        # Create a QWidget with a layout for the toggle button
-        main_widget = QtWidgets.QWidget()
-        main_layout = QtWidgets.QVBoxLayout(main_widget)
-
-        main_widget.toggle_button = QtWidgets.QPushButton("IP: " + object["ip"])
-        main_widget_font = QtGui.QFont("Arial", 50)
-        main_widget.toggle_button.setFont(main_widget_font)
-        main_widget.toggle_button.setCheckable(True)
-        main_widget.toggle_button.setEnabled(True)
-        main_widget.toggle_button.setChecked(False)
-        main_widget.toggle_button.setStyleSheet(
-            """QPushButton {
-            border: 3px solid black;
-            border-radius: 10px;
-            padding: 5px;
-            }
-            """
-        )
-        main_widget.toggle_button.setFixedSize(800, 100)
-        main_layout.addWidget(main_widget.toggle_button)
-
-        # Proxy widget for the toggle button
-        toggle_button = QtWidgets.QGraphicsProxyWidget()
-        toggle_button.setWidget(main_widget)
-        toggle_button.setPos(icon_x_pos + icon_width, icon_y_pos)
-
-
-        # Create content area as a separate QWidget
-        content_widget = QtWidgets.QWidget()
-        content_layout = QtWidgets.QVBoxLayout(content_widget)
-        content_widget.label = QtWidgets.QLabel("TCP Ports: ")
-
-        # Looping through the ports and adding to the icon
-        for port in object["tcp_ports"]:
-            current_text = content_widget.label.text()
-            content_widget.label.setText(current_text + "\n" + port + self.view.icon.get_service(port))
-
-
-        content_font = QtGui.QFont("Arial", 40)
-        content_widget.label.setFont(content_font)
-        content_widget.label.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft)
-        content_widget.setFixedSize(800, 800)
-        content_widget.setStyleSheet(
-                        """QWidget {
-            border: 3px solid black;
-            border-radius: 10px;
-            padding: 5px;
-            }
-            """
-        )
-        content_layout.addWidget(content_widget.label)
-
-        # Proxy widget for the content area
-        content_x_pos = toggle_button.pos().x()
-        content_y_pos = toggle_button.pos().y() + 150
-        content = QtWidgets.QGraphicsProxyWidget()
-        content.setWidget(content_widget)
-        content.setPos(content_x_pos, content_y_pos)  # Adjusted position
-
-        # Group all items
-        group = QtWidgets.QGraphicsItemGroup()
-        group.addToGroup(icon)
-        group.addToGroup(toggle_button)
-        group.addToGroup(content)
-
-        return group
+    def make_icon_group(self,icon,object_type):
+        icon_group = IconGroup(icon,object_type)
+        icon_group.remove_object_signal.connect(self.remove_object)
+        return icon_group
 
     def make_pc_icon(self,pc_object):
         pixmap = self.view.icon.image_items[0].pixmap()
@@ -151,6 +85,10 @@ class Controller():
         y = self.scene_coordinates[1]
 
         self.add_object_to_scene(server,x,y)
+
+    def remove_object(self,object_id,resource_object):
+        self.model.remove_resource(object_id)
+        self.view.scene.removeItem(resource_object)
 
     def add_router(self):
         print("router")

@@ -24,16 +24,7 @@
         ],
         "servers": [
             {
-                "id": 1,
-                "ip": "10.2.4.5",
-                "tcp_ports": [
-                    "21"
-                ],
-                "udp_ports": [],
-                "name": "file server"
-            },
-            {
-                "id": 2,
+                "id": 4,
                 "ip": "10.10.4.5",
                 "tcp_ports": [
                     "443"

@@ -13,15 +13,34 @@ class Model():
     # web_ports = ["80","443","8080"]
     def __init__(self):
         self.path = "results/network_db.json"
-        self.id_generator = 0
+
+    def get_ids(self):
+        data = self.read_db()
+        ids = []
+        for db_object in data["resources"]["pcs"]:
+            for key,value in db_object.items():
+                if key == "id":
+                    ids.append(value)
+
+        for db_object in data["resources"]["servers"]:
+            for key,value in db_object.items():
+                if key == "id":
+                    ids.append(value)
+        return ids
+
+
+    def generate_object_id(self):
+        ids = self.get_ids()
+        return max(ids) + 1
+    
 
               
     def add_pc(self, ip="", tcp_ports=[], udp_ports=[], name=""):
         data = self.read_db()
         pc = PC()
-        self.id_generator+=1
+        object_id = self.generate_object_id()
         data["resources"]["pcs"].append(
-            {
+            {       "id": object_id,
                     "ip": pc.ip,
                     "tcp_ports": pc.tcp_ports,
                     "udp_ports": pc.udp_ports,
@@ -33,18 +52,27 @@ class Model():
         self.write_db(data)
 
 
-    def remove_pc(self, resource_id):
+    def remove_resource(self, object_id):
         data = self.read_db()
-        data["resources"]["pcs"][0].pop(resource_id)
+        for index, db_object in enumerate(data["resources"]["pcs"]):
+            for key,value in db_object.items():
+                if key == "id" and object_id == value:
+                    data["resources"]["pcs"].pop(index)
+
+        for index,db_object in enumerate(data["resources"]["servers"]):
+            for key,value in db_object.items():
+                if key == "id" and object_id == value:
+                    data["resources"]["servers"].pop(index)
+
         self.write_db(data)
 
 
     def add_server(self, ip="", tcp_ports=[], udp_ports=[], name=""):
         data = self.read_db()
         server = Server()
-        self.id_generator+=1
+        object_id = self.generate_object_id()
         data["resources"]["servers"].append(
-            {
+            {       "id": object_id,
                     "ip": server.ip,
                     "tcp_ports": server.tcp_ports,
                     "udp_ports": server.udp_ports,
