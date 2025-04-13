@@ -10,6 +10,7 @@ class MainView(QtWidgets.QGraphicsView):
 
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("NetCart")
         self.setRenderHints(QtGui.QPainter.Antialiasing | QtGui.QPainter.SmoothPixmapTransform)
         self.setDragMode(QtWidgets.QGraphicsView.ScrollHandDrag)
         self.setTransformationAnchor(QtWidgets.QGraphicsView.AnchorUnderMouse)
@@ -28,14 +29,15 @@ class MainView(QtWidgets.QGraphicsView):
         # Sets Size of the scene
         # self.setSceneRect(0,0,1200,700)
         self.setFixedSize(screen_width, screen_height)
-        self.setSceneRect(0,0,screen_width,screen_height)
+        # self.setSceneRect(0,0,screen_width,screen_height)
+        self.setSceneRect(-999999, -999999, 1999999, 1999999)
         # When setting up your view:
         self.setInteractive(True)
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
 
         legend_origin_x = 0
         legend_origin_y = screen_height - 150
-        
+        self.centerOn(legend_origin_x+750,legend_origin_y-200)
         
         icon_left = legend_origin_x
         icon_bottom = legend_origin_y + 35
@@ -76,7 +78,6 @@ class MainView(QtWidgets.QGraphicsView):
 
         self.scene.addItem(legend_border)
 
-        # self.resize(1200,875)
 
 
     def contextMenuEvent(self, event: QtGui.QContextMenuEvent):
@@ -92,10 +93,10 @@ class MainView(QtWidgets.QGraphicsView):
 
         menu = QtWidgets.QMenu(self)
 
-        add_pc = QtGui.QAction("Add PC", self)
+        add_pc = QtGui.QAction("Add Workstation", self)
         add_server = QtGui.QAction("Add Server", self)
-        add_router = QtGui.QAction("Add Router", self)
-        add_switch = QtGui.QAction("Add Switch", self)
+        # add_router = QtGui.QAction("Add Router", self)
+        # add_switch = QtGui.QAction("Add Switch", self)
 
         # Need to send cursor coordinates to controller
         cursor_scene_pos = self.mapToScene(event.pos())  # Convert to scene coordinates
@@ -103,8 +104,8 @@ class MainView(QtWidgets.QGraphicsView):
 
         menu.addAction(add_pc)
         menu.addAction(add_server)
-        menu.addAction(add_router)
-        menu.addAction(add_switch)
+        # menu.addAction(add_router)
+        # menu.addAction(add_switch)
 
         action = menu.exec(event.globalPos())  # Show menu at cursor position
 
@@ -112,10 +113,10 @@ class MainView(QtWidgets.QGraphicsView):
             self.add_pc_signal.emit()
         elif action == add_server:
             self.add_server_signal.emit()
-        elif action == add_router:
-            self.add_router_signal.emit()
-        elif action == add_switch:
-            self.add_switch_signal.emit()
+        # elif action == add_router:
+        #     self.add_router_signal.emit()
+        # elif action == add_switch:
+        #     self.add_switch_signal.emit()
 
 
     def wheelEvent(self, event):

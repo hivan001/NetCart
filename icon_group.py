@@ -41,7 +41,7 @@ class IconGroup(QtWidgets.QGraphicsWidget):
         icon_label.setFixedWidth(500)  
 
 
-        self.ip_label.setPlainText(f"IP: {object_type['ip']}")
+        self.ip_label.setPlainText(f"{object_type['ip']}")
         self.ip_label.setFont(QtGui.QFont("Arial", 40))
         self.ip_label.setStyleSheet(label_style)
         self.ip_label.setFixedSize(500, 75)

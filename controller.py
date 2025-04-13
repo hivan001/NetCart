@@ -106,11 +106,12 @@ class Controller():
     # type = pcs or servers
     def plot_results(self):
         self.make_network_objects()
-        image_x = 10
-        image_y = 50
+        image_x = 0
+        image_y = 150
         square_size = 200  # Adjust spacing between squares
         items_per_row = 3  # Number of items per row before wrapping
         row_count = 0      # Tracks the number of row changes
+        square_count = 0
 
         all_objects = self.pc_objects + self.server_objects + self.equipment_objects
 
@@ -118,11 +119,27 @@ class Controller():
             icon = object
             self.add_object_to_scene(icon,image_x,image_y)
 
-            image_x += square_size  
+            # image_x += square_size  
 
         # Check if we should wrap to the next row
-            if (index + 1) % items_per_row == 0:  
-                image_x = 10  # Reset to starting x position
-                image_y += square_size  # Move down a row
-                row_count += 1  # Increase row count
+            # if (index + 1) % items_per_row == 0:  
+            #     image_x = 10  # Reset to starting x position
+            #     image_y += square_size  # Move down a row
+            #     row_count += 1  # Increase row count
 
+            if square_count == 0:  # Start new square
+                image_x += 200
+                square_count += 1
+            elif square_count < 2:  # Continue horizontally
+                image_x += 200
+                square_count += 1
+            elif square_count == 2:  # Drop down vertically
+                image_y += 200
+                square_count += 1
+            elif square_count < 5:  # Move back horizontally
+                image_x -= 200
+                square_count += 1
+            elif square_count == 5:  # Reset and move to new square group
+                square_count = 0
+                image_x += 600  # Move to the next grid's starting position
+                image_y = 150  # Reset vertical position for the new square group

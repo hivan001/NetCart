@@ -3,7 +3,7 @@
         {
             "id": 1,
             "resource_type": "workstation",
-            "ip": "IP: 10.10.10.101",
+            "ip": "10.10.10.101",
             "tcp_ports": "22 445 53",
             "udp_ports": "",
             "name": ""
@@ -17,12 +17,172 @@
             "name": ""
         },
         {
-            "id": 4,
-            "resource_type": "server",
-            "ip": "IP: 10.10.10.101",
-            "tcp_ports": "443\n80\n8080",
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
             "udp_ports": "",
-            "name": "web server"
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
         }
     ]
 }
