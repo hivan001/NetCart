@@ -11,8 +11,8 @@ def main():
     main_view = MainView()
     model = Model()
     controller = Controller(model=model, view=main_view)
-    
-    data = controller.get_model_data()
+
+    # This is the initial read of the JSON
     controller.plot_results()  
 
     main_view.show()

@@ -17,30 +17,40 @@ class Model():
     def get_ids(self):
         data = self.read_db()
         ids = []
-        for db_object in data["resources"]["pcs"]:
-            for key,value in db_object.items():
-                if key == "id":
-                    ids.append(value)
-
-        for db_object in data["resources"]["servers"]:
+        for db_object in data["resources"]:
             for key,value in db_object.items():
                 if key == "id":
                     ids.append(value)
         return ids
 
+    def get_index_by_id(self,object_id):
+        data = self.read_db()
+        for index,db_object in enumerate(data["resources"]):
+            for key,value in db_object.items():
+                if key == "id" and value == object_id:
+                    return index
 
+    def update_field(self, object_id, field_name, field_data):
+        data = self.read_db()
+        object_index = self.get_index_by_id(object_id)
+        data["resources"][object_index][field_name] = field_data
+
+        self.write_db(data)
+
+    
     def generate_object_id(self):
         ids = self.get_ids()
         return max(ids) + 1
     
 
               
-    def add_pc(self, ip="", tcp_ports=[], udp_ports=[], name=""):
+    def add_pc(self, ip="", tcp_ports="", udp_ports="", name=""):
         data = self.read_db()
         pc = PC()
         object_id = self.generate_object_id()
-        data["resources"]["pcs"].append(
+        data["resources"].append(
             {       "id": object_id,
+                    "resource_type":"workstation",
                     "ip": pc.ip,
                     "tcp_ports": pc.tcp_ports,
                     "udp_ports": pc.udp_ports,
@@ -54,25 +64,21 @@ class Model():
 
     def remove_resource(self, object_id):
         data = self.read_db()
-        for index, db_object in enumerate(data["resources"]["pcs"]):
+        for index, db_object in enumerate(data["resources"]):
             for key,value in db_object.items():
                 if key == "id" and object_id == value:
-                    data["resources"]["pcs"].pop(index)
-
-        for index,db_object in enumerate(data["resources"]["servers"]):
-            for key,value in db_object.items():
-                if key == "id" and object_id == value:
-                    data["resources"]["servers"].pop(index)
+                    data["resources"].pop(index)
 
         self.write_db(data)
 
 
-    def add_server(self, ip="", tcp_ports=[], udp_ports=[], name=""):
+    def add_server(self, ip="", tcp_ports="", udp_ports="", name=""):
         data = self.read_db()
         server = Server()
         object_id = self.generate_object_id()
-        data["resources"]["servers"].append(
+        data["resources"].append(
             {       "id": object_id,
+                    "resource_type":"server",
                     "ip": server.ip,
                     "tcp_ports": server.tcp_ports,
                     "udp_ports": server.udp_ports,
@@ -83,11 +89,6 @@ class Model():
 
         self.write_db(data)
 
-
-    def remove_server(self, resource_id):
-        data = self.read_db()
-        data["resources"]["servers"][0].pop(resource_id)
-        self.write_db(data)
 
     def write_db(self,data):
         try:

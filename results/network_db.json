@@ -1,37 +1,28 @@
 {
-    "resources": {
-        "pcs": [
-            {
-                "id": 1,
-                "ip": "192.168.1.182",
-                "tcp_ports": [
-                    "22",
-                    "80"
-                ],
-                "udp_ports": [],
-                "name": ""
-            },
-            {
-                "id": 2,
-                "ip": "192.168.10.182",
-                "tcp_ports": [
-                    "23",
-                    "88"
-                ],
-                "udp_ports": [],
-                "name": ""
-            }
-        ],
-        "servers": [
-            {
-                "id": 4,
-                "ip": "10.10.4.5",
-                "tcp_ports": [
-                    "443"
-                ],
-                "udp_ports": [],
-                "name": "web server"
-            }
-        ]
-    }
+    "resources": [
+        {
+            "id": 1,
+            "resource_type": "workstation",
+            "ip": "IP: 10.10.10.101",
+            "tcp_ports": "22 445 53",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 2,
+            "resource_type": "workstation",
+            "ip": "10.10.10.10",
+            "tcp_ports": "22,80",
+            "udp_ports": "",
+            "name": ""
+        },
+        {
+            "id": 4,
+            "resource_type": "server",
+            "ip": "IP: 10.10.10.101",
+            "tcp_ports": "443\n80\n8080",
+            "udp_ports": "",
+            "name": "web server"
+        }
+    ]
 }

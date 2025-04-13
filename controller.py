@@ -30,7 +30,13 @@ class Controller():
     def make_icon_group(self,icon,object_type):
         icon_group = IconGroup(icon,object_type)
         icon_group.remove_object_signal.connect(self.remove_object)
+        icon_group.ip_label.update_field_signal.connect(self.update_object)
+        icon_group.tcp_text_edit.update_field_signal.connect(self.update_object)
+        icon_group.udp_text_edit.update_field_signal.connect(self.update_object)
         return icon_group
+    
+    def update_object(self,object_id,field, field_data):
+        self.model.update_field(object_id, field, field_data)
 
     def make_pc_icon(self,pc_object):
         pixmap = self.view.icon.image_items[0].pixmap()
@@ -44,11 +50,12 @@ class Controller():
     
 
     def make_network_objects(self):
-        for pc in self.data["resources"]["pcs"]:
-            self.pc_objects.append(self.make_pc_icon(pc))
-
-        for server in self.data["resources"]["servers"]:
-            self.pc_objects.append(self.make_server_icon(server))
+        for index, db_object in enumerate(self.data["resources"]):
+            for key,value in db_object.items():
+                if key == "resource_type" and value == "workstation":
+                    self.pc_objects.append(self.make_pc_icon(db_object))
+                elif key == "resource_type" and value == "server":
+                    self.pc_objects.append(self.make_server_icon(db_object))
 
     def update_scene_coordinates(self,x,y):
         self.scene_coordinates = (x,y)
@@ -65,7 +72,7 @@ class Controller():
         self.model.add_pc()
         self.data = self.get_model_data()
         # Most recent PC object should be the one we just made here
-        pc = self.make_pc_icon(self.data["resources"]["pcs"][-1])
+        pc = self.make_pc_icon(self.data["resources"][-1])
         self.pc_objects.append(pc)
 
         x = self.scene_coordinates[0]
@@ -78,7 +85,7 @@ class Controller():
     def add_server(self):
         self.model.add_server()
         self.data = self.get_model_data()
-        server = self.make_server_icon(self.data["resources"]["servers"][-1])
+        server = self.make_server_icon(self.data["resources"][-1])
         self.server_objects.append(server)
 
         x = self.scene_coordinates[0]
