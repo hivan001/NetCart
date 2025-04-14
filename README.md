@@ -26,14 +26,14 @@ NetCart is a gui-based tool designed to simplify the creation of network maps wh
 ### Adding Network Objects
 1. Simply right-click inside of the window and specify the type of network object you'd like to add. 
 
-![Alt Text - Adding Network Objects](static\Adding_Network_Object.png)
+![Alt Text - Adding Network Object](static/Adding_Network_Object.png)
 
 
 
 ### Removing Network Objects
 1. Simply right-click inside of any of the icons select Remove from Map to remove it from the map.
 
-![Alt Text - Removing Network Objects](static\Removing_Network_Object.png)
+![Alt Text - Removing Network Objects](static/Removing_Network_Object.png)
 
 
 
