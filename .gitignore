@@ -1,2 +1,5 @@
-.\features.txt
-.\token.txt
+/features.txt
+/static/clean_images.py
+/static/db.png
+/static/web.png
+/static/ad.png
