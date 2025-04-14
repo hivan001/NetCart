@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtCore, QtGui
-from auto_save_text_edit import AutoSaveTextEdit
+from network_objects.auto_save_text_edit import AutoSaveTextEdit
 class IconGroup(QtWidgets.QGraphicsWidget):
     remove_object_signal = QtCore.Signal(int,object)
     def __init__(self,icon, object_type):

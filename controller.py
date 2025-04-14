@@ -1,5 +1,5 @@
 from model import Model
-from icon_group import IconGroup
+from network_objects.icon_group import IconGroup
 from PySide6 import QtCore, QtWidgets, QtGui
 
 class Controller():

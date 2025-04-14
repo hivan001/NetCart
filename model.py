@@ -1,10 +1,10 @@
 import sys,os
 import random
 import copy
-import icon
+import network_objects.icon as icon
 import json
-from pc import PC
-from server import Server
+from network_objects.pc import PC
+from network_objects.server import Server
 
 class Model():
     '''Model class handles all backend logic to include adding or removing resources in JSON'''

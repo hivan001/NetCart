@@ -1,4 +1,4 @@
-from icon import Icon
+from network_objects.icon import Icon
 from PySide6 import QtCore, QtWidgets, QtGui
 
 class MainView(QtWidgets.QGraphicsView):
