@@ -1,5 +1,6 @@
 import sys
-from main_view import MainView
+# from main_view import MainView
+from main_window import MainWindow
 from model import Model
 from controller import Controller
 from PySide6 import QtWidgets,QtGui
@@ -7,13 +8,13 @@ from PySide6 import QtWidgets,QtGui
 def main():
     app = QtWidgets.QApplication([])
     app.setWindowIcon(QtGui.QIcon("/static/net_cart_icon.png"))
-    main_view = MainView()
+    main_window = MainWindow()
     model = Model()
-    controller = Controller(model=model, view=main_view)
+    controller = Controller(model=model, view=main_window.view)
     # This is the initial read of the JSON
     controller.plot_results()  
 
-    main_view.show()
+    main_window.show()
     sys.exit(app.exec())    
 
 

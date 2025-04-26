@@ -29,13 +29,17 @@ NetCart is a gui-based tool designed to simplify the creation of network maps wh
 ![Alt Text - Adding Network Object](static/Adding_Network_Object.png)
 
 
-
 ### Removing Network Objects
 1. Simply right-click inside of any of the icons select Remove from Map to remove it from the map.
 
 ![Alt Text - Removing Network Objects](static/Removing_Network_Object.png)
 
+### Importing Nmap Scans
+1. In the menu bar, select "Import" and "Import Nmap Scan"
+2. Paste your Nmap scan output into the text field and hit submit
+3. The IPs and ports detected will be displayed on the map
 
+![Alt Text - Nmap Scan Import](static/Import_Nmap_Scan.png)
 
 
 

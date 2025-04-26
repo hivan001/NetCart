@@ -5,6 +5,7 @@ import network_objects.icon as icon
 import json
 from network_objects.pc import PC
 from network_objects.server import Server
+from process_nmap import process_nmap_text
 
 class Model():
     '''Model class handles all backend logic to include adding or removing resources in JSON'''
@@ -12,7 +13,7 @@ class Model():
     # db_ports = ["3306","5432","27017","1521","1433"]
     # web_ports = ["80","443","8080"]
     def __init__(self):
-        self.path = self.resource_path("results/network_db.json")
+        self.path = self.get_db_path()
 
     def get_ids(self):
         data = self.read_db()
@@ -46,15 +47,15 @@ class Model():
               
     def add_pc(self, ip="", tcp_ports="", udp_ports="", name=""):
         data = self.read_db()
-        pc = PC()
+        # pc = PC()
         object_id = self.generate_object_id()
         data["resources"].append(
             {       "id": object_id,
                     "resource_type":"workstation",
-                    "ip": pc.ip,
-                    "tcp_ports": pc.tcp_ports,
-                    "udp_ports": pc.udp_ports,
-                    "name": pc.name
+                    "ip": ip,
+                    "tcp_ports": tcp_ports,
+                    "udp_ports": udp_ports,
+                    "name": name
             }
 
          )
@@ -74,26 +75,28 @@ class Model():
 
     def add_server(self, ip="", tcp_ports="", udp_ports="", name=""):
         data = self.read_db()
-        server = Server()
+        # server = Server()
         object_id = self.generate_object_id()
         data["resources"].append(
             {       "id": object_id,
                     "resource_type":"server",
-                    "ip": server.ip,
-                    "tcp_ports": server.tcp_ports,
-                    "udp_ports": server.udp_ports,
-                    "name": server.name
+                    "ip": ip,
+                    "tcp_ports": tcp_ports,
+                    "udp_ports": udp_ports,
+                    "name": name
             }
 
          )
 
         self.write_db(data)
 
-    def resource_path(self,relative_path):
-        if hasattr(sys, "_MEIPASS"):
-            return os.path.join(sys._MEIPASS, relative_path)
-        return os.path.abspath(relative_path)
-
+    def get_db_path(self):
+        if getattr(sys, 'frozen', False):  # Running as executable
+            base_path = os.path.dirname(sys.executable)
+        else:  # Running as script
+            base_path = os.path.dirname(os.path.abspath(__file__))
+        
+        return os.path.join(base_path, "network_db.json")
 
     def write_db(self,data):
         try:
@@ -112,6 +115,12 @@ class Model():
             print("NetCart Error: Unable to load JSON file.")
 
         return {}  # Return empty dict if there was an error
+    
+
+    def process_nmap_scan(self,text):
+        objects = process_nmap_text(text)
+
+        return objects
 
 
 

@@ -6,6 +6,7 @@ class MainView(QtWidgets.QGraphicsView):
     add_server_signal = QtCore.Signal()
     add_router_signal = QtCore.Signal()
     add_switch_signal = QtCore.Signal()
+    process_nmap_signal = QtCore.Signal()
     cursor_signal = QtCore.Signal(float,float)
 
     def __init__(self):
@@ -14,7 +15,8 @@ class MainView(QtWidgets.QGraphicsView):
         self.setRenderHints(QtGui.QPainter.Antialiasing | QtGui.QPainter.SmoothPixmapTransform)
         self.setDragMode(QtWidgets.QGraphicsView.ScrollHandDrag)
         self.setTransformationAnchor(QtWidgets.QGraphicsView.AnchorUnderMouse)
-        self.zoom_factor = 1.15  # how fast to zoom       
+        self.zoom_factor = 1.15  # how fast to zoom   
+
         # Setting up the Scene
         self.scene = QtWidgets.QGraphicsScene()
         self.setScene(self.scene)
@@ -23,20 +25,14 @@ class MainView(QtWidgets.QGraphicsView):
         # Get the users screen size
         screen = QtWidgets.QApplication.primaryScreen()
         screen_geometry = screen.geometry()
-        screen_width = screen_geometry.width() * .80
-        screen_height = screen_geometry.height() * .80
 
-        # Sets Size of the scene
-        # self.setSceneRect(0,0,1200,700)
-        self.setFixedSize(screen_width, screen_height)
-        # self.setSceneRect(0,0,screen_width,screen_height)
+        # self.setFixedSize(screen_width, screen_height)
         self.setSceneRect(-999999, -999999, 1999999, 1999999)
-        # When setting up your view:
         self.setInteractive(True)
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
 
         legend_origin_x = 0
-        legend_origin_y = screen_height - 150
+        legend_origin_y = 720 - 150
         self.centerOn(legend_origin_x+750,legend_origin_y-200)
         
         icon_left = legend_origin_x
@@ -78,7 +74,37 @@ class MainView(QtWidgets.QGraphicsView):
 
         self.scene.addItem(legend_border)
 
+        # Create the nmap import gui
 
+        self.input_overlay = QtWidgets.QWidget(self)
+        self.input_overlay.setGeometry(0,0, 700, 500) 
+        self.input_overlay.setStyleSheet("background-color: white; border: 1px solid gray;")
+        self.input_overlay.hide()
+
+        layout = QtWidgets.QVBoxLayout(self.input_overlay)
+        self.import_nmap_label = QtWidgets.QLabel("Import Nmap Scan")
+        font = QtGui.QFont("Arial", 12, QtGui.QFont.Weight.Bold)
+        self.import_nmap_label.setFont(font)
+        self.import_nmap_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.nmap_text_edit = QtWidgets.QTextEdit()
+        self.submit_btn = QtWidgets.QPushButton("Submit")
+        self.cancel_btn = QtWidgets.QPushButton("Cancel")
+
+        btn_row = QtWidgets.QHBoxLayout()
+        btn_row.addWidget(self.submit_btn)
+        btn_row.addWidget(self.cancel_btn)
+        layout.addWidget(self.import_nmap_label)
+        layout.addWidget(self.nmap_text_edit)
+        layout.addLayout(btn_row)
+
+        # Cancel hides the overlay
+        self.cancel_btn.clicked.connect(self.cancel_nmap_import)
+
+        self.submit_btn.clicked.connect(self.process_nmap_signal.emit)
+
+    def cancel_nmap_import(self):
+        self.nmap_text_edit.clear()
+        self.input_overlay.hide()
 
     def contextMenuEvent(self, event: QtGui.QContextMenuEvent):
         """Override the right-click event to show a context menu."""
