@@ -3,7 +3,7 @@
         {
             "id": 1,
             "resource_type": "workstation",
-            "ip": "10.10.10.101",
+            "ip": "10.50.36.118",
             "tcp_ports": "22 445 53",
             "udp_ports": "",
             "name": ""

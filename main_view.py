@@ -30,6 +30,7 @@ class MainView(QtWidgets.QGraphicsView):
         self.setSceneRect(-999999, -999999, 1999999, 1999999)
         self.setInteractive(True)
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.setStyleSheet("background-color: #eaf4fb;")
 
         legend_origin_x = 0
         legend_origin_y = 720 - 150
@@ -118,6 +119,16 @@ class MainView(QtWidgets.QGraphicsView):
                 return
 
         menu = QtWidgets.QMenu(self)
+        menu.setStyleSheet('''
+                QMenu::item:selected {
+                background-color: #4a90e2;
+                color: white;
+                }
+                QMenu {
+                background-color: #ffffff;
+                border: 1px solid #ccc;
+                }    
+                ''')
 
         add_pc = QtGui.QAction("Add Workstation", self)
         add_server = QtGui.QAction("Add Server", self)

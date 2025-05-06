@@ -18,16 +18,17 @@ class IconGroup(QtWidgets.QGraphicsWidget):
         )
 
         # Styles
-        label_style = "border: 2px solid black; border-radius: 12px; padding 10px;background-color:lightgray;"
+        label_style = "border: 2px solid black; border-radius: 12px; padding 10px;background-color:white;"
         button_style = '''
             QPushButton {
                 border: 2px solid black;
                 border-radius: 10px;
-                background-color: lightgray;
+                background-color: #4a90e2;
                 padding: 10px;
+                color: white;
             }
             QPushButton:hover {
-                background-color: green;
+                background-color: orange;
             }
             QPushButton:pressed {
                 background-color: #cccccc;
@@ -41,14 +42,17 @@ class IconGroup(QtWidgets.QGraphicsWidget):
         # Icon setup
         icon_label = QtWidgets.QLabel()
         icon_label.setPixmap(icon.pixmap())
-        icon_label.setFixedWidth(500)
+        icon_label.setStyleSheet("background-color: #eaf4fb;")
+        icon_label.setFixedWidth(600)
+        icon_label.setScaledContents(False)
         layout.addItem(self._create_proxy(icon_label))
 
         # IP label setup
         self.ip_label.setPlainText(f"{object_type['ip']}")
-        self.ip_label.setFont(QtGui.QFont("Arial", 40))
+        self.ip_label.setFont(QtGui.QFont("Roboto", 45,QtGui.QFont.Bold))
         self.ip_label.setStyleSheet(label_style)
-        self.ip_label.setFixedSize(500, 75)
+        self.ip_label.setFixedSize(600, 100)
+        self.ip_label.setAlignment(QtCore.Qt.AlignCenter)
         self.ip_label.setReadOnly(False)
         layout.addItem(self._create_proxy(self.ip_label))
 
@@ -57,15 +61,15 @@ class IconGroup(QtWidgets.QGraphicsWidget):
         tcp_button.setCheckable(True)
         tcp_button.setChecked(True)
         tcp_button.setStyleSheet(button_style)
-        tcp_button.setFixedSize(500, 75)
-        tcp_button.setFont(QtGui.QFont("Arial", 30, QtGui.QFont.Bold))
+        tcp_button.setFixedSize(600, 75)
+        tcp_button.setFont(QtGui.QFont("Roboto", 35, QtGui.QFont.Bold))
         layout.addItem(self._create_proxy(tcp_button))
 
         # TCP TextEdit after
         self.tcp_text_edit.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.tcp_text_edit.setFont(QtGui.QFont("Arial", 30))
+        self.tcp_text_edit.setFont(QtGui.QFont("Arial",40))
         self.tcp_text_edit.setStyleSheet(label_style)
-        self.tcp_text_edit.setFixedSize(500, 200)
+        self.tcp_text_edit.setFixedSize(600, 200)
         self.tcp_text_edit.setReadOnly(False)
         self.tcp_text_edit.setPlainText(object_type["tcp_ports"].strip())
         layout.addItem(self._create_proxy(self.tcp_text_edit))
@@ -77,16 +81,34 @@ class IconGroup(QtWidgets.QGraphicsWidget):
         udp_button = QtWidgets.QPushButton("UDP Ports:")
         udp_button.setCheckable(True)
         udp_button.setChecked(True)
-        udp_button.setStyleSheet(button_style)
-        udp_button.setFixedSize(500, 75)
-        udp_button.setFont(QtGui.QFont("Arial", 30, QtGui.QFont.Bold))
+        udp_button.setStyleSheet(
+        '''
+            QPushButton {
+                border: 2px solid black;
+                border-radius: 10px;
+                background-color: green;
+                padding: 10px;
+                color: white;
+            }
+            QPushButton:hover {
+                background-color: orange;
+            }
+            QPushButton:pressed {
+                background-color: #cccccc;
+            }
+        '''
+
+
+        )
+        udp_button.setFixedSize(600, 75)
+        udp_button.setFont(QtGui.QFont("Roboto", 35, QtGui.QFont.Bold))
         layout.addItem(self._create_proxy(udp_button))
 
         # UDP TextEdit after
         self.udp_text_edit.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.udp_text_edit.setFont(QtGui.QFont("Arial", 30))
+        self.udp_text_edit.setFont(QtGui.QFont("Arial", 40))
         self.udp_text_edit.setStyleSheet(label_style)
-        self.udp_text_edit.setFixedSize(500, 200)
+        self.udp_text_edit.setFixedSize(600, 200)
         self.udp_text_edit.setReadOnly(False)
         self.udp_text_edit.setPlainText(object_type["udp_ports"].strip())
         layout.addItem(self._create_proxy(self.udp_text_edit))
@@ -106,7 +128,7 @@ class IconGroup(QtWidgets.QGraphicsWidget):
 
     def contextMenuEvent(self, event):
         """Override the right-click event to remove object."""
-        menu = QtWidgets.QMenu(parent=self)
+        menu = QtWidgets.QMenu()
         remove_object = QtGui.QAction("Remove From Map", self)
         menu.addAction(remove_object)
 
